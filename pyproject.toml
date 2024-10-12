@@ -1,0 +1,22 @@
+[project]
+name = "T20-matchup-viewer"
+description = "T20 match up viewer is a Plotly based web dashboard to look at player match ups in IPL."
+readme = "README.md"
+authors = [
+    {name="Rajaah Dhananjey",email = "rajaah.djey@gmail.com"}
+]
+license = {text = "MIT"}
+requires-python = ">= 3.11.3"
+dependencies = [
+    ""
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Windows"
+]
+
+dynamic = ["version"]
+
+[project.urls]
+"Homepage" = "https://github.com/rajaahdjey/T20matchupviewer"
