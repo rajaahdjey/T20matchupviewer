@@ -47,7 +47,8 @@ bbb_schema = {
     "other_wicket_type": pl.Utf8,
     "other_player_dismissed": pl.Utf8,
     "league" : pl.Utf8,
-    "year" : pl.UInt16
+    "year" : pl.UInt16,
+    "over" : pl.UInt8
 }
 ball_by_ball = pl.DataFrame(schema=bbb_schema)
 
@@ -58,7 +59,7 @@ for league, _ in DOWNLOAD_LIST.items():
         all_matches_df = pl.read_csv(all_matches_path, dtypes=bbb_schema)
         all_matches_df = all_matches_df.with_columns(league=pl.lit(league))
         all_matches_df = all_matches_df.with_columns(year=pl.col("season").str.slice(0,4).cast(pl.UInt16))
-        all_matches_df = all_matches_df.with_columns(year=pl.col("season").str.slice(0,4).cast(pl.UInt16))
+        all_matches_df = all_matches_df.with_columns(over=pl.col("ball").str.slice(0,1).cast(pl.UInt8)+1)
         ball_by_ball = pl.concat([ball_by_ball, all_matches_df])
 
 

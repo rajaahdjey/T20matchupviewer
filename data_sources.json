@@ -1,9 +1,13 @@
 {
-    "INT_T20" : "https://cricsheet.org/downloads/t20s_male_csv2.zip",
-    "IPL_T20" : "https://cricsheet.org/downloads/ipl_male_csv2.zip",
-    "SMAT_T20" : "https://cricsheet.org/downloads/sma_male_csv2.zip",
-    "CPL_T20" : "https://cricsheet.org/downloads/cpl_male_csv2.zip",
-    "BBL_T20" : "https://cricsheet.org/downloads/bbl_male_csv2.zip",
-    "HUNDRED" : "https://cricsheet.org/downloads/hnd_male_csv2.zip",
-    "BLAST_T20" : "https://cricsheet.org/downloads/ntb_male_csv2.zip"
+    "match_data": {
+        "INT_T20": "https://cricsheet.org/downloads/t20s_male_csv2.zip",
+        "IPL_T20": "https://cricsheet.org/downloads/ipl_male_csv2.zip",
+        "SMAT_T20": "https://cricsheet.org/downloads/sma_male_csv2.zip",
+        "CPL_T20": "https://cricsheet.org/downloads/cpl_male_csv2.zip",
+        "BBL_T20": "https://cricsheet.org/downloads/bbl_male_csv2.zip",
+        "BLAST_T20": "https://cricsheet.org/downloads/ntb_male_csv2.zip"
+    },
+    "aux_data": {
+        "People_Data": "https://cricsheet.org/register/people.csv"
+    }
 }

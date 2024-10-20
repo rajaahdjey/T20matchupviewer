@@ -1,5 +1,7 @@
 #data_files
 extracted_data/
+zip_downloads/
+t20matchupviewer.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
