@@ -58,8 +58,8 @@ for league, _ in DOWNLOAD_LIST.items():
         all_matches_path = THIS_DIR / f"./extracted_data/{league}/all_matches.csv"
         all_matches_df = pl.read_csv(all_matches_path, dtypes=bbb_schema)
         all_matches_df = all_matches_df.with_columns(league=pl.lit(league))
-        all_matches_df = all_matches_df.with_columns(year=pl.col("season").str.slice(0,4).cast(pl.UInt16))
-        all_matches_df = all_matches_df.with_columns(over=pl.col("ball").str.slice(0,1).cast(pl.UInt8)+1)
+        all_matches_df = all_matches_df.with_columns(year=pl.col("start_date").dt.year().cast(pl.UInt16))
+        all_matches_df = all_matches_df.with_columns(over=pl.col("ball").cast(pl.Float32).floor().cast(pl.UInt8)+1)
         ball_by_ball = pl.concat([ball_by_ball, all_matches_df])
 
 
