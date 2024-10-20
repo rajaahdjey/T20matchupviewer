@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T20 Match Up Viewer</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+
+<body>
+    <h2>Select Player</h2>
+    <form method="POST">
+        <label for="player">Player:</label>
+        <select id="player" name="player">
+            {% for player in players %}
+            <option value="{{ player }}" {% if selected_player==player %} selected {% endif %}>{{ player }}</option>
+            {% endfor %}
+        </select>
+        <buttom type="submit">Filter</buttom>
+    </form>
+
+    {% if plotJSON %}
+    <h3>True Strike Rate for {{selected_player}} </h3>
+    <div id="plot"></div>
+    <script>
+        var plotData = {{ plotJSON | safe}};
+        Plotly.newPlot('plot', plotData.data, plotData.layout);
+    </script>
+    {% endif %}
+</body>
+
+
+</html>
