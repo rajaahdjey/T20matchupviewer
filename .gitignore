@@ -2,6 +2,7 @@
 extracted_data/
 zip_downloads/
 t20matchupviewer.db
+*.zip
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
