@@ -26,12 +26,12 @@ def index():
                 "ball" : filtered_data["ball"]
             }
 
-            fig = px.line(df,x="over",y="age",title=f"True Strike Rate Trend for {selected_player} (min 30 balls faced in over slot)")
+            fig = px.line(df,x="over",y="true_strike_rate",title=f"True Strike Rate Trend for {selected_player} (min 30 balls faced in over slot)")
             plotJSON = json.dumps(fig,cls=plotly.utils.PlotlyJSONEncoder)
 
             return render_template("index.html",players=players,selected_player=selected_player,plotJSON = plotJSON)
 
-        render_template("index.html",players=players,plotJSON = None)
+    return render_template("index.html",players=players,plotJSON = None)
 
 if __name__ == "__main__":
     app.run(port=5000)

@@ -17,14 +17,14 @@
             <option value="{{ player }}" {% if selected_player==player %} selected {% endif %}>{{ player }}</option>
             {% endfor %}
         </select>
-        <buttom type="submit">Filter</buttom>
+        <button type="submit">Filter</button>
     </form>
 
     {% if plotJSON %}
     <h3>True Strike Rate for {{selected_player}} </h3>
     <div id="plot"></div>
     <script>
-        var plotData = {{ plotJSON | safe}};
+        var plotData = {{ plotJSON | safe }};
         Plotly.newPlot('plot', plotData.data, plotData.layout);
     </script>
     {% endif %}
