@@ -9,8 +9,12 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -69,6 +73,13 @@
             integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
             crossorigin="anonymous"></script>
 
+        <!-- Select2 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
+
+        <!-- Select2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+
+
         <form method="POST">
             <label for="player">Player:</label>
             <select id="player" name="player">
@@ -76,24 +87,59 @@
                 <option value="{{ player }}" {% if selected_player==player %} selected {% endif %}>{{ player }}</option>
                 {% endfor %}
             </select>
-            <button type="submit">Filter</button>
+            <button class="btn btn-light" type="submit">Filter</button>
         </form>
-
-        {% if plotJSON %}
-        <h3>True Strike Rate for {{selected_player}} </h3>
-        <div id="plot"></div>
-        <script>
-            var plotData = {{ plotJSON | safe }};
-            Plotly.newPlot('plot', plotData.data, plotData.layout);
-        </script>
-        {% endif %}
+        <div class="row">
+            <!-- 70% width content area -->
+            <div class="col-lg-8 col-md-8 col-12">
+                {% if plotJSON %}
+                <h3>True Strike Rate for {{selected_player}} </h3>
+                <div id="plot"></div>
+                <script>
+                    var plotData = {{ plotJSON | safe }};
+                    Plotly.newPlot('plot', plotData.data, plotData.layout, { responsive: true });
+                </script>
+                {% endif %}
+            </div>
+            <div class="col-lg-4 col-md-4 col-12">
+                <p>Sidebar or additional content for 30% width area</p>
+            </div>
+        </div>
     </div>
 </body>
+
+<script>
+    $(document).ready(function () {
+        // Apply Select2 to the #player dropdown
+        $('#player').select2({
+            width: '70%',
+            placeholder: "Select a player",  // Optional: Add placeholder text
+            allowClear: true                 // Optional: Allow the user to clear selection
+        });
+    });
+</script>
 <style>
     body {
         background-color: #212121;
         color: white;
     }
+
+    .select2-container {
+        background-color: #212121;
+        color: #ffffff;
+    }
+
+    .select2-results__option,
+    .select2-selection--single,
+    .select2-dropdown {
+        background-color: #212121;
+        color: #ffffff;
+    }
+
+    .select2-selection__rendered {
+        color: #ffffff;
+    }
 </style>
+
 
 </html>
