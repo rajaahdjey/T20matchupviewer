@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 import polars as pl
 import adbc_driver_sqlite.dbapi
 from runs_calc import expected_runs_calc
+import pydantic
 
 app = FastAPI()
 
