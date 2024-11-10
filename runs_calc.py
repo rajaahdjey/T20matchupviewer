@@ -42,10 +42,13 @@ print(df.columns)
 
 
 def expected_runs_calc(df : pl.DataFrame):
+    #only wide is not counted in balls faced and deliveries bowled.
+    df = df.with_columns(batsman_ball = pl.when((pl.col("wides").is_not_null())).then(None).otherwise(pl.col("ball")))
     df = df.with_columns(ball = pl.when((pl.col("wides").is_not_null())|(pl.col("noballs").is_not_null())).then(None).otherwise(pl.col("ball")))
     expected_runs = df.group_by(["league", "year", "over"]).agg(
         [
             pl.count("ball"),
+            pl.count("batsman_ball"),
             pl.sum("runs_off_bat"),
             pl.sum("extras"),
             pl.count("wicket_type"),
@@ -59,7 +62,7 @@ def expected_runs_calc(df : pl.DataFrame):
     )
     expected_runs = expected_runs.with_columns(
         expected_batting_strike_rate=(
-            pl.sum_horizontal("runs_off_bat") * 100.0 / pl.col("ball")
+            pl.sum_horizontal("runs_off_bat") * 100.0 / pl.col("batsman_ball")
         )
     )
     expected_runs = expected_runs.with_columns(
