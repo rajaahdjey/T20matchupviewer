@@ -10,7 +10,13 @@ app = FastAPI()
 
 def player_filter_batsman(selected_player):
     conn = adbc_driver_sqlite.dbapi.connect("t20matchupviewer.db")
-    query = f"SELECT striker,bowler,extras,wides,noballs,ball,runs_off_bat,wicket_type,league,year,over FROM ball_by_ball where innings <=2 AND striker = '{selected_player}' order by other_wicket_type DESC"
+    player_id_query = f"SELECT key_cricinfo FROM people where unique_name = '{selected_player}'"
+    cursor = conn.cursor()
+    cursor.execute(player_id_query)
+    selected_id = cursor.fetchone()
+    selected_id = selected_id[0]
+    cursor.close()
+    query = f"SELECT striker,bowler,extras,wides,noballs,ball,runs_off_bat,wicket_type,league,year,over FROM ball_by_ball where innings <=2 AND striker = '{selected_id}' order by other_wicket_type DESC"
 
     df = pl.read_database(query, conn)
     
@@ -48,7 +54,7 @@ def player_filter_batsman(selected_player):
     return expected_runs_player.sort(by="over")
 
 
-print(player_filter_batsman("Dhruv Jurel"))
+print(player_filter_batsman("MS Dhoni"))
 
 @app.get("/true_strike_rate_trend")
 def get_true_strike_rate_trend(player: str = Query("MS Dhoni")):

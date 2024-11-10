@@ -9,16 +9,13 @@ import plotly
 app = Flask(__name__)
 
 conn = adbc_driver_sqlite.dbapi.connect("t20matchupviewer.db")
-bat_unique = f"SELECT distinct striker FROM ball_by_ball"
-bowl_unique = f"SELECT distinct bowler FROM ball_by_ball"
+unique_players = f"SELECT distinct unique_name FROM people"
 # players = ["MS Dhoni","R Parag","KA Pollard","KL Rahul"]
 cursor = conn.cursor()
-cursor.execute(bat_unique)
+cursor.execute(unique_players)
 players = set([row[0] for row in cursor.fetchall()])
 print("Players List:", players)
 
-cursor.execute(bowl_unique)
-players = players.union(set([row[0] for row in cursor.fetchall()]))
 cursor.close()
 conn.close()
 print("Players List:", players)
